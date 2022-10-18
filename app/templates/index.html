@@ -5,22 +5,32 @@
 {% block content %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-      <span class="govuk-caption-xl">Demonstration</span>
-      <h1 class="govuk-heading-xl">GOV.UK Frontend Jinja</h1>
-      <p class="govuk-body-l">This is a simple <a href="https://www.python.org/" class="govuk-link">Python</a> application using the <a href="https://flask.palletsprojects.com/en/1.1.x/" class="govuk-link">Flask</a> framework that demonstrates the <a href="https://jinja.palletsprojects.com/en/2.11.x/" class="govuk-link">Jinja</a> port of <a href="https://frontend.design-system.service.gov.uk/" class="govuk-link">GOV.UK Frontend</a>.</p>
-      <p class="govuk-body"><a href="https://github.com/LandRegistry/govuk-frontend-jinja" class="govuk-link">GOV.UK Frontend Jinja</a> provides a complete set of reusable component Jinja macros, directly ported from the GOV.UK Frontend Nunjucks macros.</p>
-      <p class="govuk-body">An automated test suite makes use of the GOV.UK Frontend <a href="https://frontend.design-system.service.gov.uk/testing-your-html/#test-if-your-html-matches-gov-uk-frontend" class="govuk-link">test fixtures</a> to ensure 100% compliant HTML is output. This currently covers a total of 564 test scenarios against every component, which you can see in the <a href="https://github.com/LandRegistry/govuk-frontend-jinja/actions" class="govuk-link">build status</a>.</p>
-      <p class="govuk-body">Every visual test fixture is rendered in the pages linked below, along with the Jinja macro options and HTML used to create them. These can be used as examples, or for visual regression testing.</p>
-      {{ govukInsetText({'html': 'If you also need to generate forms in your Python project, check out <a href="https://govuk-frontend-wtforms.herokuapp.com/" class="govuk-link">GOV.UK Frontend WTForms</a> which makes use of these Jinja macros.'} )}}
+      {{ super() }}
+      <span class="govuk-caption-xl">GDS Circuits</span>
+      <h1 class="govuk-heading-xl">GDS Circuits</h1>
+      <p class="govuk-body-l">
+       This is a service that helps you quickly come up with a circuits session
+      </p>
 
-      <h2 class="govuk-heading-l">Components</h2>
-      <ul class="govuk-list govuk-list--bullet">
-        {% for component in components %}
-        <li>
-          <a class="govuk-link" href="{{ url_for('component', component=component) }}">{{component | replace("-", " ") | capitalize}}</a>
-        </li>
-        {% endfor %}
+      <p class="govuk-body">
+       There are 3 types of circuits session
+        <ul class="govuk-list govuk-list--bullet">
+        <li>Two sets of 12 exercises 40 seconds work with 20 seconds rest</li>
+        <li>Three sets of 6 exercises working 1 minute per exercise with no rest between exercises and a two minute rest between sets</li>
+        <li>Three sets of 4 exercises with 12 reps per exercise repeating for 6 minutes with a two minute rest between sets </li>
       </ul>
+      </p>
+
+        <p><a class="govuk-link" href="{{ url_for('start') }}">Choose a circuits session</a></p>
+      <p class="govuk-body">
+  <div>
+        {{ script|safe }}
+  {{ div|safe }}
+</div>
+
+      </p>
+
+
     </div>
-  </div>  
+  </div>
 {% endblock %}

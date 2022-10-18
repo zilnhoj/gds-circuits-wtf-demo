@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{%- from 'govuk_frontend_jinja/components/button/macro.html' import govukButton -%}
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      {{ super() }}
+      <span class="govuk-caption-xl">GDS Circuits</span>
+      <h1 class="govuk-heading-xl">GDS Circuits</h1>
+      <p class="govuk-body-l">
+       This is a service that helps you quickly come up with a circuits session
+      </p>
+
+      <p class="govuk-body">
+       There are 3 types of circuits session
+        <ul class="govuk-list govuk-list--bullet">
+        <li>Two sets 12 exercises 40 </li>
+        <li>Three sets of 6 exercises working for 1 min per exercise with no rest between exercises</li>
+        <li>Three sets of 4 exercises wir 12 reps per exercise continuously for 6 minutes </li>
+      </ul>
+      </p>
+        <p>Registering takes around 5 minutes.</p>
+
+        <p>
+            {{ govukButton({
+  'text': 'Start now', 'href': '/date', 'isStartButton': True })
+            }}
+
+        </p>
+
+
+    </div>
+  </div>
+{% endblock %}

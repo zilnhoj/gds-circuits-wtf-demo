@@ -69,6 +69,7 @@
 {% block bodyEnd %}
   <!--[if gt IE 8]><!-->
   <script src="{{ url_for('static', filename='govuk-frontend-4.2.0.min.js') }}"> </script>
-  <script>window.GOVUKFrontend.initAll()</script>
+    <script type="text/javascript" src="{{ url_for('static', filename='bokeh-2.4.3.min.js') }}"</script>
+<script>window.GOVUKFrontend.initAll()</script>
   <!--<![endif]-->
 {% endblock %}

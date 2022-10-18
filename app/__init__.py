@@ -16,13 +16,18 @@ app.jinja_env.trim_blocks = True
 app.jinja_env.lstrip_blocks = True
 
 csp = {
-    "default-src": "'self'",
-    "script-src": [
-        "'self'",
-        "'sha256-+6WnXIl4mbFTCARd8N3COQmT3bJJmo32N8q8ZSQAIcU='",
-        "'sha256-l1eTVSK8DTnK8+yloud7wZUqFrI0atVo6VlC6PJvYaQ='",
-    ],
-}
+        "default-src": "'self'",
+        "style-src": ["'self'",
+                      "'unsafe-inline'",
+                      'https://cdn.bokeh.org/bokeh/release/bokeh-2.4.3.min.js'
+                      ],
+        "script-src": [
+            "'self'",
+            "'unsafe-inline'",
+
+        ],
+        'img-src': ['*', 'self', 'data: https:']
+    }
 
 Compress(app)
 Talisman(app, content_security_policy=csp)
