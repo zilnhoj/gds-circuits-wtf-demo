@@ -17,10 +17,9 @@
     {{ super() }}
     <span class="govuk-caption-xl">GDS Circuits</span>
     <h1 class="govuk-heading-xl">Choose circuit</h1>
-    [[ date|safe }}
 
-    <form class="form" action="/review" method="post" novalidate>
-
+    <form class="form" action="/choose-circuit" method="post" novalidate>
+<p> {{ cir_date|safe }}</p>
     {{ govukRadios({
         'id': 'choose-a-session',
         'name': 'example-default',
@@ -30,7 +29,7 @@
                 {'value': '4x12x3', 'text': '4 by 12 reps by 3 sets'}]
         }) }}
 
-      <p class="govuk-body">The following is a WTForm SubmitField rendered using a GovSubmitInput widget:</p>
+<!--      <p class="govuk-body">The following is a WTForm SubmitField rendered using a GovSubmitInput widget:</p>-->
 
 
            {{ govukButton({

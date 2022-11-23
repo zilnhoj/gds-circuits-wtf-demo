@@ -404,4 +404,7 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+#ignore creds folder
+app/src/creds/*
+
 # End of https://www.toptal.com/developers/gitignore/api/git,venv,macos,linux,flask,vscode,python,windows,jetbrains+all

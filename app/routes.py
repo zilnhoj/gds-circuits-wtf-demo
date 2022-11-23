@@ -1,14 +1,22 @@
 import json
 import os
 
-from flask import flash, json, make_response, redirect, render_template, request, url_for
+from flask import flash, json, make_response, redirect, render_template, request, url_for, g
 from werkzeug.exceptions import NotFound
 from bokeh.plotting import figure
 from bokeh.embed import components
-from bokeh.models import Range1d
+from bokeh.models import Range1d, ColumnDataSource, DataTable, DateFormatter, TableColumn
+from app.src.set_circuits import get_circuit
+
+
 
 from app import app
 
+# g.cir_date = ""
+@app.before_request
+def before_request():
+  g.cir_date = "date"
+  g.cir_session = "session"
 
 @app.route("/")
 def index():
@@ -56,35 +64,70 @@ def start():
 
 @app.route("/date", methods=["GET", "POST"])
 def date():
-
     if request.method == "POST":
-        cir_date = request.form['dob']
-        print(f' circuits - {cir_date}')
+        cir_date = request.form.values()
+        # cir_date = next(request.form.values())
 
-        # return redirect("choose-circuit.html")
-        return redirect(url_for("choose_circuit"), date=cir_date)
-    else:
-        date = 'none'
-    print('outside of validate on submit if statement')
+        cir_date_ls = [x for x in cir_date]
+        g.cir_date = f'{cir_date_ls[0]}-{cir_date_ls[1]}-{cir_date_ls[2]}'
+        print(f'value for date {g.cir_date}')
+        # return render_template("choose-circuit.html", cir_date=g.cir_date)
+        return render_template("choose-circuit.html")
     return render_template("date.html")
 
 @app.route("/choose-circuit", methods=["GET", "POST"])
 def choose_circuit():
-
     if request.method == "POST":
-        cir_session = request.form['choose-a-session']
-        print(f'value for choose a session {cir_session}')
+        g.cir_date = g.cir_date
+        g.cir_session = next(request.form.values())
+        print(f'value for choose a session {g.cir_session}')
 
-        return redirect(url_for("review", cir_session=cir_session))
+        return render_template("review.html")
+
+        # return render_template("ct_session.html")
     return render_template("choose-circuit.html")
 
 @app.route("/review", methods=["GET", "POST"])
 def review():
 
-    # if request.method == "POST":
-    #
-    #     return redirect(url_for("start"))
+    if request.method == "POST":
+        print(request)
+        g.cir_date = g.cir_date
+        g.cir_session = g.cir_session
+        print(f'{g.cir_date} - {g.cir_session}')
+        columns = [
+            TableColumn(field="Type", title="Type"),
+            TableColumn(field="Circuit", title="Circuit"),
+            TableColumn(field="Work", title="Work"),
+            TableColumn(field="Rest", title="Rest")
+        ]
+        print(f'{g.cir_date} - {g.cir_session}')
+        session_df = get_circuit(g.cir_date, g.cir_session)
+        print(session_df.head())
+        circuits_src = ColumnDataSource(session_df)
+        circ_dt = DataTable(source=circuits_src, columns=columns, width=800, height=380)
+
+        div, script = components(circ_dt)
+        return render_template("ct_session.html", div=div, script=script)
     return render_template("review.html")
+
+@app.route("/ct_session")
+def ct_session():
+
+    columns = [
+        TableColumn(field="Type", title="Type"),
+        TableColumn(field="Circuit", title="Circuit"),
+        TableColumn(field="Work", title="Work"),
+        TableColumn(field="Rest", title="Rest")
+    ]
+    print(f'{g.cir_date} - {g.cir_session}')
+    session_df = get_circuit(g.cir_date, g.cir_session)
+    print(session_df.head())
+    circuits_src = ColumnDataSource(session_df)
+    circ_dt = DataTable(source=circuits_src, columns=columns, width=800, height=380)
+
+    div, script = components(circ_dt)
+    return render_template("ct_session.html", div=div, script=script)
 
 @app.errorhandler(404)
 def not_found(error):

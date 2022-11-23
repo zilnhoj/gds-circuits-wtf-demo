@@ -15,7 +15,7 @@
 {% block header %}
   {{ govukHeader({
     'homepageUrl': url_for('index'),
-    'serviceName': "GOV.UK Frontend Jinja Demo",
+    'serviceName': "GOV.UK Circuits App",
     'serviceUrl': url_for('index')
   }) }}
 {% endblock %}
@@ -70,6 +70,10 @@
   <!--[if gt IE 8]><!-->
   <script src="{{ url_for('static', filename='govuk-frontend-4.2.0.min.js') }}"> </script>
     <script type="text/javascript" src="{{ url_for('static', filename='bokeh-2.4.3.min.js') }}"</script>
+<script src="https://cdn.bokeh.org/bokeh/release/bokeh-widgets-2.4.3.min.js"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.bokeh.org/bokeh/release/bokeh-tables-2.4.3.min.js"
+        crossorigin="anonymous"></script>
 <script>window.GOVUKFrontend.initAll()</script>
   <!--<![endif]-->
 {% endblock %}

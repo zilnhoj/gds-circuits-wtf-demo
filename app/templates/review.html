@@ -7,7 +7,7 @@
 {% block beforeContent %}
   {{ govukBackLink({
     'text': "Back",
-    'href': url_for('index')
+    'href': url_for('choose_circuit')
   }) }}
 {% endblock %}
 
@@ -21,25 +21,24 @@
         <h1 class="govuk-heading-l">Check your answers before sending your application</h1>
 
         <h2 class="govuk-heading-m">Circuit details</h2>
-        {{ govukSummaryList(
-    {"rows": [{"key": {"text": "Date of session"}, "value": {"text": "Sarah Philips"}, "actions": {"items": [{"href": "/date", "text": "Change", "visuallyHiddenText": "date"}]}},
-    {"key": {"text": "Circuit session"}, "value": {"html": '{{ cir_session|safe }}'}, "actions": {"items": [{"href": "/choose-circuit", "text": "Change", "visuallyHiddenText": "choose circuit"}]}}
+          <p class="govuk-body">
+
+
+              {{ govukSummaryList(
+    {"rows": [{"key": {"text": "Date of session"}, "value": {"html": g.cir_date|safe}, "actions": {"items": [{"href": "/date", "text": "Change", "visuallyHiddenText": "date"}]}},
+    {"key": {"text": "Circuit session"}, "value": {"html": g.cir_session|safe}, "actions": {"items": [{"href": "/choose-circuit", "text": "Change", "visuallyHiddenText": "choose circuit"}]}}
         ]}
     ) }}
+          </p>
         <h2 class="govuk-heading-m">Now send your application</h2>
-            <div>
-  {{ cir_session|safe }}
-</div>
 
         <p class="govuk-body">By submitting this application you are confirming that, to the best of your knowledge, the details you are providing are correct.</p>
 
-        <form action="/form-handler" method="post" novalidate>
 
-          <input type="hidden" name="answers-checked" value="true">
-
-          <button class="govuk-button" data-module="govuk-button">
-            Accept and send
-          </button>
+            <form action="/review" method="post" novalidate>
+                       {{ govukButton({
+  'text': 'Get your circuit'})
+            }}
 
         </form>
 

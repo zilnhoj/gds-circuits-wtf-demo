@@ -19,13 +19,13 @@ csp = {
         "default-src": "'self'",
         "style-src": ["'self'",
                       "'unsafe-inline'",
-                      'https://cdn.bokeh.org/bokeh/release/bokeh-2.4.3.min.js'
+                      'https://cdn.bokeh.org/bokeh/release/bokeh-2.4.3.min.js',
                       ],
         "script-src": [
-            "'self'",
-            "'unsafe-inline'",
-
-        ],
+                    "'self'",
+                    "'unsafe-inline'",
+                    'https://cdn.bokeh.org/bokeh/release/bokeh-tables-2.4.3.min.js',
+                     ],
         'img-src': ['*', 'self', 'data: https:']
     }
 
@@ -33,3 +33,4 @@ Compress(app)
 Talisman(app, content_security_policy=csp)
 
 from app import routes  # noqa: E402, F401
+# from app.src.set_circuits import
